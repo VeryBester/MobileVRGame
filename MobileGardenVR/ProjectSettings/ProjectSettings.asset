@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 15
-  productGUID: 14834ad2f3aad2a44a20c1057651ed2b
+  productGUID: 1b92cff131ea9484fac434f87c03121c
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -617,9 +617,9 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 7d974d29-b10b-447d-8192-43596b91be99
+  cloudProjectId: 6e62c0c3-4222-4a32-b3a7-7434a0ac55ea
   framebufferDepthMemorylessMode: 0
-  projectName: MobileGardenVR
+  projectName: MobileGardenVR (1)
   organizationId: david15202
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
