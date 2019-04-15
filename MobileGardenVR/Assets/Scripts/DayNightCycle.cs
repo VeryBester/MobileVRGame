@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class DayNightCycle : MonoBehaviour
 {
+    // Holds the different skyboxes
     public Material[] skyboxes = new Material[5];
     
     void Start()
     {
+        // Starts teh Day-Night Cycle
+        // TODO: make sure doesnt cause a stack overflow in long term
         StartCoroutine(startDay());
     }
 
