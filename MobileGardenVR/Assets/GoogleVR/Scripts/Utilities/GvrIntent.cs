@@ -1,6 +1,4 @@
-//-----------------------------------------------------------------------
-// <copyright file="GvrIntent.cs" company="Google Inc.">
-// Copyright 2017 Google Inc. All rights reserved.
+﻿// Copyright 2017 Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,104 +11,75 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// </copyright>
-//-----------------------------------------------------------------------
 
 using UnityEngine;
 
 /// <summary>
 /// Provides information about the Android Intent that started the current Activity.
 /// </summary>
-public static class GvrIntent
-{
-    private const string METHOD_GET_INTENT = "getIntent";
-    private const string METHOD_HASH_CODE = "hashCode";
-    private const string METHOD_INTENT_GET_DATA_STRING = "getDataString";
-    private const string METHOD_INTENT_GET_BOOLEAN_EXTRA = "getBooleanExtra";
+public static class GvrIntent {
 
-    private const string EXTRA_VR_LAUNCH = "android.intent.extra.VR_LAUNCH";
+  private const string METHOD_GET_INTENT = "getIntent";
+  private const string METHOD_HASH_CODE = "hashCode";
+  private const string METHOD_INTENT_GET_DATA_STRING = "getDataString";
+  private const string METHOD_INTENT_GET_BOOLEAN_EXTRA = "getBooleanExtra";
 
-    /// <summary>
-    /// Returns the string representation of the data URI on which this activity's intent is
-    /// operating.
-    /// </summary>
-    /// <remarks>See `Intent.getDataString()` in the Android documentation.</remarks>
-    /// <returns>
-    /// The `string` representation of the data URI on which this activity's intent is operating.
-    /// </returns>
-    public static string GetData()
-    {
+  private const string EXTRA_VR_LAUNCH = "android.intent.extra.VR_LAUNCH";
+
+  // Returns the string representation of the data URI on which this activity's intent is
+  // operating. See Intent.getDataString() in the Android documentation.
+  public static string GetData() {
 #if UNITY_EDITOR || !UNITY_ANDROID
-        return null;
+    return null;
 #else
-        AndroidJavaObject androidIntent = GetIntent();
-        if (androidIntent == null)
-        {
-            Debug.Log("Intent on current activity was null");
-            return null;
-        }
-
-        return androidIntent.Call<string>(METHOD_INTENT_GET_DATA_STRING);
-#endif  // UNITY_EDITOR || !UNITY_ANDROID
+    AndroidJavaObject androidIntent = GetIntent();
+    if (androidIntent == null) {
+      Debug.Log("Intent on current activity was null");
+      return null;
     }
+    return androidIntent.Call<string>(METHOD_INTENT_GET_DATA_STRING);
+#endif  // UNITY_EDITOR || !UNITY_ANDROID
+  }
 
-    /// <summary>
-    /// Checks whether the intent category contains "android.intent.extra.VR_LAUNCH".
-    /// </summary>
-    /// <returns>
-    /// Returns `true` if the intent category contains "android.intent.extra.VR_LAUNCH", `false`
-    /// otherwise.
-    /// </returns>
-    public static bool IsLaunchedFromVr()
-    {
+  // Returns true if the intent category contains com.google.intent.category.DAYDREAM.
+  public static bool IsLaunchedFromVr() {
 #if UNITY_EDITOR || !UNITY_ANDROID
-        return false;
+    return false;
 #else
-        AndroidJavaObject androidIntent = GetIntent();
-        if (androidIntent == null)
-        {
-            Debug.Log("Intent on current activity was null");
-            return false;
-        }
-
-        return androidIntent.Call<bool>(METHOD_INTENT_GET_BOOLEAN_EXTRA, EXTRA_VR_LAUNCH, false);
-#endif  // UNITY_EDITOR || !UNITY_ANDROID
+    AndroidJavaObject androidIntent = GetIntent();
+    if (androidIntent == null) {
+      Debug.Log("Intent on current activity was null");
+      return false;
     }
+    return androidIntent.Call<bool>(METHOD_INTENT_GET_BOOLEAN_EXTRA, EXTRA_VR_LAUNCH, false);
+#endif  // UNITY_EDITOR || !UNITY_ANDROID
+  }
 
-    /// <summary>Returns the hash code of the Java intent object.</summary>
-    /// <remarks>Useful for discerning whether you have a new intent on un-pause.</remarks>
-    /// <returns>The hash code of the Java intent object.</returns>
-    public static int GetIntentHashCode()
-    {
+  // Returns the hash code of the Java intent object.  Useful for discerning whether
+  // you have a new intent on un-pause.
+  public static int GetIntentHashCode() {
 #if UNITY_EDITOR || !UNITY_ANDROID
-        return 0;
+    return 0;
 #else
-        AndroidJavaObject androidIntent = GetIntent();
-        if (androidIntent == null)
-        {
-            Debug.Log("Intent on current activity was null");
-            return 0;
-        }
-
-        return androidIntent.Call<int>(METHOD_HASH_CODE);
+    AndroidJavaObject androidIntent = GetIntent();
+    if (androidIntent == null) {
+      Debug.Log("Intent on current activity was null");
+      return 0;
+    }
+    return androidIntent.Call<int>(METHOD_HASH_CODE);
 #endif  // UNITY_EDITOR || !UNITY_ANDROID
-    }
+  }
 
-    #if !UNITY_EDITOR && UNITY_ANDROID
-    private static AndroidJavaObject GetIntent()
-    {
-        AndroidJavaObject androidActivity = null;
-        try
-        {
-            androidActivity = GvrActivityHelper.GetActivity();
-        }
-        catch (AndroidJavaException e)
-        {
-            Debug.LogError("Exception while connecting to the Activity: " + e);
-            return null;
-        }
-
-        return androidActivity.Call<AndroidJavaObject>(METHOD_GET_INTENT);
+#if !UNITY_EDITOR && UNITY_ANDROID
+  private static AndroidJavaObject GetIntent() {
+    AndroidJavaObject androidActivity = null;
+    try {
+      androidActivity = GvrActivityHelper.GetActivity();
+    } catch (AndroidJavaException e) {
+      Debug.LogError("Exception while connecting to the Activity: " + e);
+      return null;
     }
-    #endif  // !UNITY_EDITOR && UNITY_ANDROID
+    return androidActivity.Call<AndroidJavaObject>(METHOD_GET_INTENT);
+  }
+#endif  // !UNITY_EDITOR && UNITY_ANDROID
 }

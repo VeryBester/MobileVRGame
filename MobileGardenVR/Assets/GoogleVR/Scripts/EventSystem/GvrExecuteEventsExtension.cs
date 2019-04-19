@@ -1,6 +1,4 @@
-//-----------------------------------------------------------------------
-// <copyright file="GvrExecuteEventsExtension.cs" company="Google Inc.">
-// Copyright 2017 Google Inc. All rights reserved.
+﻿// Copyright 2017 Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,31 +11,20 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// </copyright>
-//-----------------------------------------------------------------------
 
-using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections;
 
-/// <summary>
-/// This script extends the standard Unity `EventSystem` events with GVR-specific events.
-/// </summary>
-public static class GvrExecuteEventsExtension
-{
-    /// <summary>Gets a handler for hover events.</summary>
-    /// <value>A handler for hover events.</value>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage(
-        "UnityRules.LegacyGvrStyleRules",
-        "VR1001:AccessibleNonConstantPropertiesMustBeUpperCamelCase",
-        Justification = "Legacy Public API.")]
-    public static ExecuteEvents.EventFunction<IGvrPointerHoverHandler> pointerHoverHandler
-    {
-        get { return Execute; }
-    }
+/// This script extends the standard Unity EventSystem events with Gvr specific events.
+public static class GvrExecuteEventsExtension {
+  private static readonly ExecuteEvents.EventFunction<IGvrPointerHoverHandler> s_HoverHandler = Execute;
 
-    private static void Execute(IGvrPointerHoverHandler handler, BaseEventData eventData)
-    {
-        handler.OnGvrPointerHover(ExecuteEvents.ValidateEventData<PointerEventData>(eventData));
-    }
+  private static void Execute(IGvrPointerHoverHandler handler, BaseEventData eventData) {
+    handler.OnGvrPointerHover(ExecuteEvents.ValidateEventData<PointerEventData>(eventData));
+  }
+
+  public static ExecuteEvents.EventFunction<IGvrPointerHoverHandler> pointerHoverHandler {
+    get { return s_HoverHandler; }
+  }
 }

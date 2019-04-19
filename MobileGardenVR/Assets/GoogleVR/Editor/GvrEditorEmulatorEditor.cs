@@ -1,6 +1,4 @@
-//-----------------------------------------------------------------------
-// <copyright file="GvrEditorEmulatorEditor.cs" company="Google Inc.">
-// Copyright 2017 Google Inc. All rights reserved.
+﻿// Copyright 2017 Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,37 +11,30 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// </copyright>
-//-----------------------------------------------------------------------
 
-using UnityEditor;
 using UnityEngine;
+using UnityEditor;
 
-/// <summary>A custom editor for the `GvrEditorEmulator` script.</summary>
-/// <remarks>It adds an info panel describing the camera controls.</remarks>
+/// A custom editor for the GvrEditorEmulator script.
+/// It adds an info panel describing the camera controls.
 [CustomEditor(typeof(GvrEditorEmulator)), CanEditMultipleObjects]
-public class GvrEditorEmulatorEditor : Editor
-{
-    private const string INFO_TEXT = "Camera Controls:\n" +
-                                     "   • Alt + Move Mouse = Change Yaw/Pitch\n" +
-                                     "   • Ctrl + Move Mouse = Change Roll";
+public class GvrEditorEmulatorEditor : Editor {
+  private float infoHeight;
 
-    private const int NUM_INFO_LINES = 3;
+  private const string INFO_TEXT = "Camera Controls:\n" +
+                                   "   • Alt + Move Mouse = Change Yaw/Pitch\n" +
+                                   "   • Ctrl + Move Mouse = Change Roll";
 
-    private float infoHeight;
+  private const int NUM_INFO_LINES = 3;
 
-    /// <summary>A builtin method of the `Editor` class.</summary>
-    /// <remarks>Implement this function to make a custom inspector.</remarks>
-    public override void OnInspectorGUI()
-    {
-        DrawDefaultInspector();
+  void OnEnable() {
+    infoHeight = GvrInfoDrawer.GetHeightForLines(NUM_INFO_LINES);
+  }
 
-        Rect rect = EditorGUILayout.GetControlRect(false, infoHeight);
-        GvrInfoDrawer.Draw(rect, INFO_TEXT, MessageType.None);
-    }
+  public override void OnInspectorGUI() {
+    DrawDefaultInspector();
 
-    private void OnEnable()
-    {
-        infoHeight = GvrInfoDrawer.GetHeightForLines(NUM_INFO_LINES);
-    }
+    Rect rect = EditorGUILayout.GetControlRect(false, infoHeight);
+    GvrInfoDrawer.Draw(rect, INFO_TEXT);
+  }
 }

@@ -1,6 +1,4 @@
-//-----------------------------------------------------------------------
-// <copyright file="GvrControllerVisualEditor.cs" company="Google Inc.">
-// Copyright 2017 Google Inc. All rights reserved.
+﻿// Copyright 2017 Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,154 +11,131 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// </copyright>
-//-----------------------------------------------------------------------
 
-using System.Collections;
-using UnityEditor;
 using UnityEngine;
+using UnityEditor;
+using System.Collections;
 
-/// <summary>Custom editor for `GvrControllerVisual`.</summary>
-/// <remarks>
-/// Enhances the visualization of the `displayState` and ensures that it can only be edited if the
-/// application isn't playing or if `readControllerState` is turned off.
-/// </remarks>
+/// Custom editor for GvrControllerVisual.
+/// Enhances the visualization of the displayState and ensures that it can only be edited
+/// if the application isn't playing or if readControllerState is turned off.
 [CustomEditor(typeof(GvrControllerVisual)), CanEditMultipleObjects]
-public class GvrControllerVisualEditor : Editor
-{
-    private const string DISPLAY_STATE_HEADER_TEXT = "DisplayState:";
-    private const string DISPLAY_STATE_ITEM_PREFIX = "• ";
-    private const int DISPLAY_STATE_HEADER_FONT_SIZE_OFFSET = 2;
+public class GvrControllerVisualEditor : Editor {
+  private SerializedProperty attachmentPrefabs;
+  private SerializedProperty touchPadColor;
+  private SerializedProperty appButtonColor;
+  private SerializedProperty systemButtonColor;
+  private SerializedProperty readControllerState;
+  private SerializedProperty displayState;
+  private SerializedProperty maximumAlpha;
 
-    private const string ATTACHMENT_PREFABS_PROP_NAME = "attachmentPrefabs";
-    private const string TOUCH_PAD_COLOR_PROP_NAME = "touchPadColor";
-    private const string APP_BUTTON_COLOR_PROP_NAME = "appButtonColor";
-    private const string SYSTEM_BUTTON_COLOR_PROP_NAME = "systemButtonColor";
-    private const string READ_CONTROLLER_STATE_PROP_NAME = "readControllerState";
-    private const string DISPLAY_STATE_PROP_NAME = "displayState";
-    private const string MAXIMUM_ALPHA_PROP_NAME = "maximumAlpha";
+  private GUIStyle displayStateHeaderStyle;
+  private GUIContent displayStateHeaderContent;
+  private float displayStateHeaderHeight;
 
-    private SerializedProperty attachmentPrefabs;
-    private SerializedProperty touchPadColor;
-    private SerializedProperty appButtonColor;
-    private SerializedProperty systemButtonColor;
-    private SerializedProperty readControllerState;
-    private SerializedProperty displayState;
-    private SerializedProperty maximumAlpha;
+  private const string DISPLAY_STATE_HEADER_TEXT = "DisplayState:";
+  private const string DISPLAY_STATE_ITEM_PREFIX = "• ";
+  private const int DISPLAY_STATE_HEADER_FONT_SIZE_OFFSET = 2;
 
-    private GUIStyle displayStateHeaderStyle;
-    private GUIContent displayStateHeaderContent;
-    private float displayStateHeaderHeight;
+  private const string ATTACHMENT_PREFABS_PROP_NAME = "attachmentPrefabs";
+  private const string TOUCH_PAD_COLOR_PROP_NAME = "touchPadColor";
+  private const string APP_BUTTON_COLOR_PROP_NAME = "appButtonColor";
+  private const string SYSTEM_BUTTON_COLOR_PROP_NAME = "systemButtonColor";
+  private const string READ_CONTROLLER_STATE_PROP_NAME = "readControllerState";
+  private const string DISPLAY_STATE_PROP_NAME = "displayState";
+  private const string MAXIMUM_ALPHA_PROP_NAME = "maximumAlpha";
 
-    /// @cond
-    /// <summary>A builtin method of the `Editor` class.</summary>
-    /// <remarks>Implement this function to make a custom inspector.</remarks>
-    public override void OnInspectorGUI()
-    {
-        serializedObject.Update();
+  void OnEnable() {
+    attachmentPrefabs = serializedObject.FindProperty(ATTACHMENT_PREFABS_PROP_NAME);
+    touchPadColor = serializedObject.FindProperty(TOUCH_PAD_COLOR_PROP_NAME);
+    appButtonColor = serializedObject.FindProperty(APP_BUTTON_COLOR_PROP_NAME);
+    systemButtonColor = serializedObject.FindProperty(SYSTEM_BUTTON_COLOR_PROP_NAME);
+    readControllerState = serializedObject.FindProperty(READ_CONTROLLER_STATE_PROP_NAME);
+    displayState = serializedObject.FindProperty(DISPLAY_STATE_PROP_NAME);
+    maximumAlpha = serializedObject.FindProperty(MAXIMUM_ALPHA_PROP_NAME);
+  }
 
-        // Add clickable script field, as would have been provided by DrawDefaultInspector()
-        MonoScript script = MonoScript.FromMonoBehaviour(target as MonoBehaviour);
-        EditorGUI.BeginDisabledGroup(true);
-        EditorGUILayout.ObjectField("Script", script, typeof(MonoScript), false);
-        EditorGUI.EndDisabledGroup();
+  public override void OnInspectorGUI() {
+    serializedObject.Update();
 
-        CreateStylesAndContent();
+    // Add clickable script field, as would have been provided by DrawDefaultInspector()
+    MonoScript script = MonoScript.FromMonoBehaviour (target as MonoBehaviour);
+    EditorGUI.BeginDisabledGroup (true);
+    EditorGUILayout.ObjectField ("Script", script, typeof(MonoScript), false);
+    EditorGUI.EndDisabledGroup ();
 
-        // Show all properties except for display state.
-        EditorGUILayout.PropertyField(attachmentPrefabs, true);
-        EditorGUILayout.PropertyField(touchPadColor);
-        EditorGUILayout.PropertyField(appButtonColor);
-        EditorGUILayout.PropertyField(systemButtonColor);
-        EditorGUILayout.PropertyField(readControllerState);
+    CreateStylesAndContent();
 
-        // Determine if the display state can currently be edited in the inspector.
-        bool allowEditDisplayState = !readControllerState.boolValue || !Application.isPlaying;
+    // Show all properties except for display state.
+    EditorGUILayout.PropertyField(attachmentPrefabs, true);
+    EditorGUILayout.PropertyField(touchPadColor);
+    EditorGUILayout.PropertyField(appButtonColor);
+    EditorGUILayout.PropertyField(systemButtonColor);
+    EditorGUILayout.PropertyField(readControllerState);
 
-        if (!allowEditDisplayState)
-        {
-            // Prevents editing the display state in the inspector.
-            GUI.enabled = false;
-        }
+    // Determine if the display state can currently be edited in the inspector.
+    bool allowEditDisplayState = !readControllerState.boolValue || !Application.isPlaying;
 
-        Rect displayStateRect = EditorGUILayout.BeginVertical();
-        GUI.Box(displayStateRect, "");
-
-        // Show the display state header.
-        EditorGUILayout.LabelField(displayStateHeaderContent,
-            displayStateHeaderStyle,
-            GUILayout.Height(displayStateHeaderHeight));
-
-        // Indent the display state properties.
-        EditorGUI.indentLevel++;
-
-        // Iterate through the child properties of the displayState property.
-        SerializedProperty iter = displayState.Copy();
-        SerializedProperty nextElement = displayState.Copy();
-        bool hasNextElement = nextElement.Next(false);
-
-        iter.NextVisible(true);
-        do
-        {
-            // It iter is the same as nextElement, then the iter has moved beyond the children of
-            // the display state which means it has finished showing the display state.
-            if (hasNextElement && SerializedProperty.EqualContents(nextElement, iter))
-            {
-                break;
-            }
-
-            GUIContent content = new GUIContent(DISPLAY_STATE_ITEM_PREFIX + iter.displayName);
-            EditorGUILayout.PropertyField(iter, content);
-        }
-        while (iter.NextVisible(false));
-
-        // End the vertical region and draw the box.
-        EditorGUI.indentLevel--;
-        EditorGUILayout.Space();
-        EditorGUILayout.EndVertical();
-
-        // Reset GUI.enabled.
-        if (!allowEditDisplayState)
-        {
-            GUI.enabled = true;
-        }
-
-        EditorGUILayout.PropertyField(maximumAlpha);
-
-        serializedObject.ApplyModifiedProperties();
+    if (!allowEditDisplayState) {
+      // Prevents editing the display state in the inspector.
+      GUI.enabled = false;
     }
 
-    private void OnEnable()
-    {
-        attachmentPrefabs = serializedObject.FindProperty(ATTACHMENT_PREFABS_PROP_NAME);
-        touchPadColor = serializedObject.FindProperty(TOUCH_PAD_COLOR_PROP_NAME);
-        appButtonColor = serializedObject.FindProperty(APP_BUTTON_COLOR_PROP_NAME);
-        systemButtonColor = serializedObject.FindProperty(SYSTEM_BUTTON_COLOR_PROP_NAME);
-        readControllerState = serializedObject.FindProperty(READ_CONTROLLER_STATE_PROP_NAME);
-        displayState = serializedObject.FindProperty(DISPLAY_STATE_PROP_NAME);
-        maximumAlpha = serializedObject.FindProperty(MAXIMUM_ALPHA_PROP_NAME);
+    Rect displayStateRect = EditorGUILayout.BeginVertical();
+    GUI.Box(displayStateRect, "");
+
+    // Show the display state header.
+    EditorGUILayout.LabelField(displayStateHeaderContent,
+      displayStateHeaderStyle,
+      GUILayout.Height(displayStateHeaderHeight));
+
+    // Indent the display state properties.
+    EditorGUI.indentLevel++;
+
+    // Iterate through the child properties of the displayState property.
+    SerializedProperty iter = displayState.Copy();
+    SerializedProperty nextElement = displayState.Copy();
+    bool hasNextElement = nextElement.Next(false);
+
+    iter.NextVisible(true);
+    do {
+      // It iter is the same as nextElement, then the iter has moved beyond the children of the
+      // display state which means it has finished showing the display state.
+      if (hasNextElement && SerializedProperty.EqualContents(nextElement, iter)) {
+        break;
+      }
+
+      GUIContent content = new GUIContent(DISPLAY_STATE_ITEM_PREFIX + iter.displayName);
+      EditorGUILayout.PropertyField(iter, content);
+    } while (iter.NextVisible(false));
+
+    // End the vertical region and draw the box.
+    EditorGUI.indentLevel--;
+    EditorGUILayout.Space();
+    EditorGUILayout.EndVertical();
+
+    // Reset GUI.enabled.
+    if (!allowEditDisplayState) {
+      GUI.enabled = true;
     }
 
-    /// @endcond
-    /// <summary>
-    /// Creates GUI content for the Controller Visual with any applicable text styles applied.
-    /// </summary>
-    private void CreateStylesAndContent()
-    {
-        if (displayStateHeaderContent == null)
-        {
-            displayStateHeaderContent = new GUIContent(DISPLAY_STATE_HEADER_TEXT);
-        }
+    EditorGUILayout.PropertyField(maximumAlpha);
 
-        if (displayStateHeaderStyle == null)
-        {
-            displayStateHeaderStyle = new GUIStyle(EditorStyles.boldLabel);
+    serializedObject.ApplyModifiedProperties();
+  }
 
-            displayStateHeaderStyle.fontSize =
-                    displayStateHeaderStyle.font.fontSize + DISPLAY_STATE_HEADER_FONT_SIZE_OFFSET;
-
-            displayStateHeaderHeight =
-                    displayStateHeaderStyle.CalcSize(displayStateHeaderContent).y;
-        }
+  private void CreateStylesAndContent() {
+    if (displayStateHeaderContent == null) {
+      displayStateHeaderContent = new GUIContent(DISPLAY_STATE_HEADER_TEXT);
     }
+
+    if (displayStateHeaderStyle == null) {
+      displayStateHeaderStyle = new GUIStyle(EditorStyles.boldLabel);
+
+      displayStateHeaderStyle.fontSize =
+        displayStateHeaderStyle.font.fontSize + DISPLAY_STATE_HEADER_FONT_SIZE_OFFSET;
+
+      displayStateHeaderHeight = displayStateHeaderStyle.CalcSize(displayStateHeaderContent).y;
+    }
+  }
 }
