@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(EventTrigger))]
 public class CubeBehavior : MonoBehaviour {
 
-/* 	Renderer rend;
+ 	Renderer rend;
 	Color oldColor;
 	Color tempColor;
 
@@ -47,7 +47,7 @@ public class CubeBehavior : MonoBehaviour {
 	public void Release() {
 		transform.SetParent(null, true);
 	}
-	*/
+	
 }
 
 public static class EventExtensions {
