@@ -5,7 +5,7 @@ using UnityEngine;
 public class ToolCycle : MonoBehaviour
 {
     Vector2 startPos;
-    private void Update() {
+    /* private void Update() {
         if(GvrControllerInput.TouchDown){
             startPos = GvrControllerInput.TouchPosCentered;
         }
@@ -22,6 +22,6 @@ public class ToolCycle : MonoBehaviour
             }
         }
         
-    }
+    }*/
 }
 
