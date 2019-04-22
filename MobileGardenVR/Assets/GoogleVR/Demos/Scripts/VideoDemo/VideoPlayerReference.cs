@@ -1,4 +1,6 @@
-﻿// Copyright 2016 Google Inc. All rights reserved.
+//-----------------------------------------------------------------------
+// <copyright file="VideoPlayerReference.cs" company="Google Inc.">
+// Copyright 2016 Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,20 +13,29 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+// </copyright>
+//-----------------------------------------------------------------------
 
-namespace GoogleVR.VideoDemo {
-  using UnityEngine;
+namespace GoogleVR.VideoDemo
+{
+    using UnityEngine;
 
-  public class VideoPlayerReference : MonoBehaviour {
+    /// <summary>
+    /// A data class which finds and stores reference information for `GvrVideoPlayerTexture`
+    /// instances.
+    /// </summary>
+    public class VideoPlayerReference : MonoBehaviour
+    {
+        /// <summary>The `GvrVideoPlayerTexture` instance this object refers to.</summary>
+        public GvrVideoPlayerTexture player;
 
-    public GvrVideoPlayerTexture player;
-
-    void Awake() {
-  #if !UNITY_5_2
-      GetComponentInChildren<VideoControlsManager>(true).Player = player;
-  #else
-      GetComponentInChildren<VideoControlsManager>().Player = player;
-  #endif
+        private void Awake()
+        {
+#if !UNITY_5_2
+            GetComponentInChildren<VideoControlsManager>(true).Player = player;
+#else
+            GetComponentInChildren<VideoControlsManager>().Player = player;
+#endif
+        }
     }
-  }
 }

@@ -1,4 +1,6 @@
-﻿// Copyright 2016 Google Inc. All rights reserved.
+//-----------------------------------------------------------------------
+// <copyright file="IGvrPointerHoverHandler.cs" company="Google Inc.">
+// Copyright 2016 Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,12 +13,15 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+// </copyright>
+//-----------------------------------------------------------------------
 
 using UnityEngine.EventSystems;
 
-/// Interface to implement if you wish to receive OnGvrPointerHover callbacks.
-public interface IGvrPointerHoverHandler : IEventSystemHandler {
-
-  /// Called when pointer is hovering over GameObject.
-  void OnGvrPointerHover(PointerEventData eventData);
+/// <summary>Interface to implement if you wish to receive `OnGvrPointerHover` callbacks.</summary>
+public interface IGvrPointerHoverHandler : IEventSystemHandler
+{
+    /// <summary>Called when pointer is hovering over `GameObject`.</summary>
+    /// <param name="eventData">The event data associated with the triggering event.</param>
+    void OnGvrPointerHover(PointerEventData eventData);
 }

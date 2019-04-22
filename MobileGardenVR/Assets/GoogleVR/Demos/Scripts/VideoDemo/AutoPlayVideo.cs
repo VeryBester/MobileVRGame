@@ -1,4 +1,3 @@
-﻿
 // <copyright file="AutoPlayVideo.cs" company="Google Inc.">
 // Copyright (C) 2016 Google Inc. All Rights Reserved.
 //
@@ -15,53 +14,68 @@
 //    limitations under the License.
 // </copyright>
 
-namespace GoogleVR.VideoDemo {
-  using UnityEngine;
+namespace GoogleVR.VideoDemo
+{
+    using UnityEngine;
 
-  /// <summary>
-  /// Auto play video.
-  /// </summary>
-  /// <remarks>This script exposes a delay value in seconds to start playing the TexturePlayer
-  /// component on the same object.
-  /// </remarks>
+    /// <summary>Auto play video.</summary>
+    /// <remarks>
+    /// This script exposes a delay value in seconds to start playing the TexturePlayer component on
+    /// the same object.
+    /// </remarks>
+    [RequireComponent(typeof(GvrVideoPlayerTexture))]
+    public class AutoPlayVideo : MonoBehaviour
+    {
+        /// <summary>
+        /// The time in seconds to wait before starting to play the `GvrVideoPlayerTexture`.
+        /// </summary>
+        public float delay = 2f;
 
-  [RequireComponent(typeof(GvrVideoPlayerTexture))]
-  public class AutoPlayVideo : MonoBehaviour {
-    private bool done;
-    private float t;
-    private GvrVideoPlayerTexture player;
+        /// <summary>Whether to loop playing the `GvrVideoPlayerTexture`.</summary>
+        public bool loop = false;
 
-    public float delay = 2f;
-    public bool loop = false;
+        private bool done;
+        private float t;
+        private GvrVideoPlayerTexture player;
 
-    void Start() {
-      t = 0;
-      done = false;
-      player = GetComponent<GvrVideoPlayerTexture>();
-      if (player != null) {
-        player.Init();
-      }
+        private void Start()
+        {
+            t = 0;
+            done = false;
+            player = GetComponent<GvrVideoPlayerTexture>();
+            if (player != null)
+            {
+                player.Init();
+            }
+        }
+
+        private void Update()
+        {
+            if (player == null)
+            {
+                return;
+            }
+            else if (player.PlayerState == GvrVideoPlayerTexture.VideoPlayerState.Ended &&
+                     done &&
+                     loop)
+            {
+                player.Pause();
+                player.CurrentPosition = 0;
+                done = false;
+                t = 0f;
+                return;
+            }
+
+            if (done)
+            {
+                return;
+            }
+
+            t += Time.deltaTime;
+            if (t >= delay && player != null && player.Play())
+            {
+                done = true;
+            }
+        }
     }
-
-    void Update() {
-      if (player == null) {
-        return;
-      } else if (player.PlayerState == GvrVideoPlayerTexture.VideoPlayerState.Ended && done && loop) {
-        player.Pause();
-        player.CurrentPosition = 0;
-        done = false;
-        t = 0f;
-        return;
-      }
-      if (done) {
-        return;
-      }
-
-      t += Time.deltaTime;
-      if (t >= delay && player != null) {
-        player.Play();
-        done = true;
-      }
-    }
-  }
 }

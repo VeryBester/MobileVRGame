@@ -1,4 +1,6 @@
-﻿// Copyright 2017 Google Inc. All rights reserved.
+//-----------------------------------------------------------------------
+// <copyright file="GvrTooltipEditor.cs" company="Google Inc.">
+// Copyright 2017 Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,19 +13,34 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+// </copyright>
+//-----------------------------------------------------------------------
 
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
-/// A custom editor for the GvrTooltip script. It exists to surface to the user that the tooltip
-/// changes based on handedness, and to make it easy to preview the handedness settings.
+/// <summary>A custom editor for the `GvrTooltip` script.</summary>
+/// <remarks>
+/// This exists to surface to the user that the tooltip changes based on handedness, and to make it
+/// easy to preview the handedness settings.
+/// </remarks>
 [CustomEditor(typeof(GvrTooltip)), CanEditMultipleObjects]
-public class GvrTooltipEditor : Editor {
-  public override void OnInspectorGUI() {
-    DrawDefaultInspector();
-    EditorGUILayout.LabelField("Current Handedness", GvrSettings.Handedness.ToString(), EditorStyles.boldLabel);
-    if (GUILayout.Button("Change Handedness")) {
-      EditorWindow.GetWindow(typeof(GvrEditorSettings));
+public class GvrTooltipEditor : Editor
+{
+    /// @cond
+    /// <summary>A builtin method of the `Editor` class.</summary>
+    /// <remarks>Implement this function to make a custom inspector.</remarks>
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+        EditorGUILayout.LabelField("Current Handedness",
+                                   GvrSettings.Handedness.ToString(),
+                                   EditorStyles.boldLabel);
+        if (GUILayout.Button("Change Handedness"))
+        {
+            EditorWindow.GetWindow(typeof(GvrEditorSettings));
+        }
     }
-  }
+
+    /// @endcond
 }
