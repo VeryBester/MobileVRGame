@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class ToolCycle : MonoBehaviour
 {
+    Vector2 startPos;
     private void Update() {
-        if(GvrControllerInput.IsTouching){
-            //TODO: Find way to handle and detect swipes
-            /*
-            Swipe direction plan:
-            right --> next tool
-            left --> previous tool
-            up --> next type if given (e.g differnt type of seed)
-            down --> previous type if given (e.g differnt type of seed)
-             */
+        if(GvrControllerInput.TouchDown){
+            startPos = GvrControllerInput.TouchPosCentered;
+        }
+
+        if(GvrControllerInput.TouchUp){
+            Vector2 diff = GvrControllerInput.TouchPosCentered - startPos;
+
+            if(diff.x > 0){
+                //Right
+            }
+
+            if(diff.x < 0){
+                //Left
+            }
         }
         
     }
 }
+
