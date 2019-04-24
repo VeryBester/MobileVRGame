@@ -17,20 +17,17 @@ public class CubeBehavior : MonoBehaviour {
 		gameObject.AddListener(EventTriggerType.PointerUp, Release);
 		
 		// Will use to change the shader of objects
-		gameObject.AddListener(EventTriggerType.PointerUp, Enter);
-		gameObject.AddListener(EventTriggerType.PointerUp, Exit);
+		gameObject.AddListener(EventTriggerType.PointerEnter, Enter);
+		gameObject.AddListener(EventTriggerType.PointerExit, Exit);
 
 		rend = GetComponent<Renderer>();
 		oldColor = rend.material.color;
 		tempColor = Color.red;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 	
 	public void Enter(){
+		oldColor = rend.material.color;
 		rend.material.color = tempColor;
 	}
 

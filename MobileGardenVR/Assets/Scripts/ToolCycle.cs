@@ -5,7 +5,13 @@ using UnityEngine;
 public class ToolCycle : MonoBehaviour
 {
     Vector2 startPos;
-    /* private void Update() {
+
+    Renderer rend;
+    private void Start() {
+        rend = GetComponent<Renderer>();
+    }
+
+    private void Update() {
         if(GvrControllerInput.TouchDown){
             startPos = GvrControllerInput.TouchPosCentered;
         }
@@ -14,14 +20,14 @@ public class ToolCycle : MonoBehaviour
             Vector2 diff = GvrControllerInput.TouchPosCentered - startPos;
 
             if(diff.x > 0){
-                //Right
+                rend.material.color = Color.blue;
             }
 
             if(diff.x < 0){
-                //Left
+                rend.material.color = Color.green;
             }
         }
         
-    }*/
+    }
 }
 
