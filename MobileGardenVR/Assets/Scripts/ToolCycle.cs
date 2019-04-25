@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class ToolCycle : MonoBehaviour
 {
@@ -13,21 +15,25 @@ public class ToolCycle : MonoBehaviour
 
     private void Update() {
         if(GvrControllerInput.TouchDown){
-            startPos = GvrControllerInput.TouchPosCentered;
-        }
+            StartCoroutine(Slide());
+        }        
+    }
 
-        if(GvrControllerInput.TouchUp){
-            Vector2 diff = GvrControllerInput.TouchPosCentered - startPos;
-
-            if(diff.x > 0){
+    IEnumerator Slide(){
+        if(GvrControllerInput.TouchDown){
+            yield return new WaitForSeconds(1);
+            startPos = GvrControllerInput.TouchPosCentered.normalized;
+            
+            if(startPos.x > 0.4){
                 rend.material.color = Color.blue;
             }
 
-            if(diff.x < 0){
+            else if(startPos.x < -0.4){
                 rend.material.color = Color.green;
             }
+
+            StartCoroutine(Slide());
         }
-        
     }
 }
 
