@@ -9,7 +9,7 @@ public class Plant
     public int growthTime;
     public GameObject dropFruit;
 
-    void Init(string type, GameObject[] stages, int growthTime, GameObject dropFruit)
+    public Plant(string type, GameObject[] stages, int growthTime, GameObject dropFruit)
     {
         this.type = type;
         this.stages = stages;
