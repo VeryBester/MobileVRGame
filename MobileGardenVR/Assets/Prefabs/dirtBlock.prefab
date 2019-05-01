@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 6598611668526312885}
   - component: {fileID: 6598611668881938868}
   - component: {fileID: 9100918043440645977}
+  - component: {fileID: 5929690866083481153}
   m_Layer: 0
   m_Name: dirtBlock
   m_TagString: Untagged
@@ -92,6 +93,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Delegates: []
   delegates: []
+--- !u!65 &5929690866083481153
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6598611668526543253}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.05, y: 0.01, z: 0.04}
+  m_Center: {x: -0.012, y: 0.01, z: -0.008}
 --- !u!1 &6598611668526543261
 GameObject:
   m_ObjectHideFlags: 0

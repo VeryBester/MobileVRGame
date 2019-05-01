@@ -9,7 +9,8 @@ public class PlantSeed : MonoBehaviour
 {
     public GameObject seed;
     void Start() {
-        gameObject.AddListener(EventTriggerType.PointerClick, plantSeed); 
+        gameObject.AddListener(EventTriggerType.PointerClick, plantSeed);
+        StartCoroutine(seed1()); 
     }
 
     public void plantSeed(){

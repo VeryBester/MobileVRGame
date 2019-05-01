@@ -46,17 +46,3 @@ public class CubeBehavior : MonoBehaviour {
 	}
 	
 }
-
-public static class EventExtensions {
-
-	public static void AddListener(this GameObject gameObject, EventTriggerType eventTriggerType, UnityAction action) {
-		EventTrigger eventTrigger = gameObject.GetComponent<EventTrigger>();
-
-		EventTrigger.Entry entry = new EventTrigger.Entry();
-		entry.eventID = eventTriggerType;
-		entry.callback.AddListener(_ => action());
-
-		eventTrigger.triggers.Add(entry);
-	}
-
-}
