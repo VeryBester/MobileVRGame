@@ -23,5 +23,4 @@ public class PlantSeed : MonoBehaviour
         plantSeed();
         Debug.Log("PLanted");
     }
-    
 }
