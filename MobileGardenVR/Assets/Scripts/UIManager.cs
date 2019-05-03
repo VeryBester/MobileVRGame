@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
     private int score;
     private int maxScore = 100;
 
+    public PlayerStats player;
+
     // Start is called before the first frame update
 
     void Start()
@@ -23,7 +25,7 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        setScore(player.score);
     }
 
     public void setScore(int score)
