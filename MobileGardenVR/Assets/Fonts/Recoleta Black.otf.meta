@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 7b1e48c14094b47ef87f633a9a2a3cfe
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Recoleta
+  fontNames:
+  - Recoleta
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 40a6c177a550f45e7908be90c8e05468, type: 3}
+  - {fileID: 12800000, guid: 15e0474aa1fda45c3a124eb2cb96eabf, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
