@@ -21,14 +21,14 @@ public class ToolCycle : MonoBehaviour
 
     IEnumerator Slide(){
         if(GvrControllerInput.TouchDown){
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
             startPos = GvrControllerInput.TouchPosCentered.normalized;
             
-            if(startPos.x > 0.4){
+            if(startPos.x > 0.4f){
                 rend.material.color = Color.blue;
             }
 
-            else if(startPos.x < -0.4){
+            else if(startPos.x < -0.4f){
                 rend.material.color = Color.green;
             }
 
