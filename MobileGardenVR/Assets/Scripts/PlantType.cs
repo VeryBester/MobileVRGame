@@ -9,23 +9,43 @@ using UnityEngine.EventSystems;
 public class PlantType : MonoBehaviour
 {
     public string name;
-    public float water;
-    public float time;
+    float water;
+    float time;
     public bool ready;
     public string waterNotReady;
     public string timeNotReady;
     public float cost;
     private PlantType type;
+
+    public PlayerStats player;
+
     private void Start() {
+
         type = gameObject.GetComponent<PlantType>();
         gameObject.AddListener(EventTriggerType.PointerClick, makeChange);
+        ready = false;
         StartCoroutine(passTime());
         StartCoroutine(waterDry());
     }
 
+    private void Update() {
+        if(water >= 1 && time >= 1){
+            ready = true;
+        }
+        else{
+            ready = false;
+        }
+    }
     public void makeChange(){
-        // Get current tool
-        // Change water based on it
+        
+        if(player.currTool.name == "Water"){
+            if(water > 1f){
+                water = 1.2f;
+            }
+            else{
+                water += 0.2f;
+            }
+        }
     }
 
     // Idle for time and water

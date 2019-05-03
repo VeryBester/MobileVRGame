@@ -7,16 +7,20 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(EventTrigger))]
 public class PlantSeed : MonoBehaviour
 {
+    public bool planted;
     public GameObject seed;
+
     void Start() {
         gameObject.AddListener(EventTriggerType.PointerClick, plantSeed);
-        StartCoroutine(seed1()); 
+        planted = false; 
     }
 
     public void plantSeed(){
         Debug.Log("Planted");
-        GameObject center = gameObject.transform.Find("Plant").gameObject;
-        GameObject temp = Instantiate(seed, center.transform.position, Quaternion.identity, center.transform);
+        if(!planted){
+            GameObject center = gameObject.transform.Find("Plant").gameObject;
+            GameObject temp = Instantiate(seed, center.transform.position, Quaternion.identity, center.transform);
+        }
     }
     
     IEnumerator seed1(){

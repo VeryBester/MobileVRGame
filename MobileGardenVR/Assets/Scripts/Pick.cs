@@ -9,7 +9,6 @@ using UnityEngine.EventSystems;
 public class Pick : MonoBehaviour
 {
     PlantType type;
-    bool ready = true;
     // Start is called before the first frame update
     void Start()
     {
