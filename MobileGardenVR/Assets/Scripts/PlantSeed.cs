@@ -9,6 +9,7 @@ public class PlantSeed : MonoBehaviour
 {
     public bool planted;
     public GameObject seed;
+    GameObject temp;
 
     void Start() {
         gameObject.AddListener(EventTriggerType.PointerClick, plantSeed);
@@ -19,8 +20,13 @@ public class PlantSeed : MonoBehaviour
         Debug.Log("Planted");
         if(!planted){
             GameObject center = gameObject.transform.Find("Plant").gameObject;
-            GameObject temp = Instantiate(seed, center.transform.position, Quaternion.identity, center.transform);
+            temp = Instantiate(seed, center.transform.position, Quaternion.identity, center.transform);
         }
+        else{
+            Destroy(temp);
+            planted = false;
+        }
+
     }
     
     IEnumerator seed1(){
