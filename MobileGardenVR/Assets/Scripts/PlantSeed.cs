@@ -9,27 +9,46 @@ public class PlantSeed : MonoBehaviour
 {
     public bool planted;
     public GameObject seed;
-    GameObject temp;
+    public PlantType child;
+
+    public PlayerStats player;
 
     void Start() {
         gameObject.AddListener(EventTriggerType.PointerClick, plantSeed);
-        planted = false; 
+        child = null;
+        planted = false;
+        StartCoroutine(seed1()); 
     }
 
+    // Command for click
+    // Plants seed if none planted, and waters if tool is on water
     public void plantSeed(){
         Debug.Log("Planted");
         if(!planted){
             GameObject center = gameObject.transform.Find("Plant").gameObject;
-            temp = Instantiate(seed, center.transform.position, Quaternion.identity, center.transform);
+            GameObject temp = Instantiate(seed, center.transform.position, Quaternion.identity, center.transform);
+            child = temp.GetComponent<PlantType>();
+            planted = true;
         }
         else{
-            Destroy(temp);
-            planted = false;
+            Water();
         }
-
     }
     
+     public void Water(){
+        
+        if(player.currTool.name == "Water" && child != null){
+            if(child.water > 1f){
+                child.water = 1.2f;
+            }
+            else{
+                child.water += 0.2f;
+            }
+        }
+    }
+
     IEnumerator seed1(){
+        plantSeed();
         yield return new WaitForSeconds(2);
         plantSeed();
         Debug.Log("PLanted");
