@@ -67,13 +67,14 @@ public class PlantType : MonoBehaviour
     // For when the player waters the plant
     public void Water(){
         
-        if(player.currTool.name == "Water"){
+        if(player.currTool.name == "Water" && player.water >= 0.2f){
             if(water > 1f){
                 water = 1.2f;
             }
             else{
                 water += 0.2f;
             }
+            player.water -= 0.2f;
         }
     }
 
