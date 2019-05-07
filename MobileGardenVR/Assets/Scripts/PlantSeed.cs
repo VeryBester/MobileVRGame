@@ -17,13 +17,13 @@ public class PlantSeed : MonoBehaviour
         gameObject.AddListener(EventTriggerType.PointerClick, plantSeed);
         child = null;
         planted = false;
-        StartCoroutine(seed1()); 
+        //StartCoroutine(seed1()); 
     }
 
     // Command for click
     // Plants seed if none planted, and waters if tool is on water
     public void plantSeed(){
-        Debug.Log("Planted");
+        //Debug.Log("Planted");
         if(!planted){
             GameObject center = gameObject.transform.Find("Plant").gameObject;
             GameObject temp = Instantiate(seed, center.transform.position, Quaternion.identity, center.transform);
