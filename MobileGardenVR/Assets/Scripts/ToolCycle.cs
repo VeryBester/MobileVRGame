@@ -28,7 +28,7 @@ public class ToolCycle : MonoBehaviour
 
     IEnumerator Slide(){
         if(GvrControllerInput.TouchDown){
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.25f);
             startPos = GvrControllerInput.TouchPosCentered.normalized;
             
             if(startPos.x > 0.4f){

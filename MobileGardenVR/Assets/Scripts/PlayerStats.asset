@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e5c240c4ef83a5419f21e4bfe863d6c, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  appleCount: 0
-  plantCount: 0
-  score: 0
+  appleCount: 2
+  plantCount: 5
+  score: 100
+  currTool: {fileID: 11400000, guid: 6820db836f871b64dbd0c8d87f5005bb, type: 2}

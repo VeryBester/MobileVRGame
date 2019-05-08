@@ -78,7 +78,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473081b4241fb684dbe91b6f34d58f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: {fileID: 5324297367690636304, guid: de016ac3826a8e34b813da8270092054, type: 3}
+  planted: 0
+  seed: {fileID: 5066320781126005930, guid: 8f500b970590ba84fbd90b2d099c6311, type: 3}
+  child: {fileID: 0}
+  player: {fileID: 11400000, guid: 347a1c526b6f04d4aa12d92a93a61eaa, type: 2}
 --- !u!114 &9100918043440645977
 MonoBehaviour:
   m_ObjectHideFlags: 0

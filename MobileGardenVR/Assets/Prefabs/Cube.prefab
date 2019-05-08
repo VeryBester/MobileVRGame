@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 31443500206954051}
   - component: {fileID: 3352719970473440963}
   - component: {fileID: 5355492137858557502}
+  - component: {fileID: 2186601428017624823}
+  - component: {fileID: 8682446159800834542}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -91,3 +93,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2186601428017624823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5324297367690636304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00349c46d54fea6448b2983ed08c2d12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  water: 0
+  ready: 0
+  waterNotReady: 
+  timeNotReady: 
+  seed: {fileID: 0}
+  sprout: {fileID: 0}
+  plant: {fileID: 0}
+  player: {fileID: 0}
+--- !u!114 &8682446159800834542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5324297367690636304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  delegates: []
