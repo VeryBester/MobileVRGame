@@ -64,19 +64,6 @@ public class PlantType : MonoBehaviour
             ready = false;
         }
     }
-    // For when the player waters the plant
-    public void Water(){
-        
-        if(player.currTool.name == "Water" && player.water >= 0.2f){
-            if(water > 1f){
-                water = 1.2f;
-            }
-            else{
-                water += 0.2f;
-            }
-            player.water -= 0.2f;
-        }
-    }
 
     public void Hold() {
         if(player.currTool.name != "Water"){
@@ -97,6 +84,10 @@ public class PlantType : MonoBehaviour
             parent.planted = false;
             player.plantCount++;
             parent.child = null;
+            plantPlanted = false;
+            sproutPlanted = false;
+            water = 0;
+            time = 0;
             Destroy(this);
             
         }

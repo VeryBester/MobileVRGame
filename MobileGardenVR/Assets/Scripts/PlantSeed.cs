@@ -35,15 +35,16 @@ public class PlantSeed : MonoBehaviour
         }
     }
     
-     public void Water(){
+    public void Water(){
         
-        if(player.currTool.name == "Water" && child != null){
+        if(player.currTool.name == "Water" && player.water >= 0.2f){
             if(child.water > 1f){
                 child.water = 1.2f;
             }
             else{
                 child.water += 0.2f;
             }
+            player.water -= 0.2f;
         }
     }
 
