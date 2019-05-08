@@ -13,9 +13,9 @@ public class ToolCycle : MonoBehaviour
 
     public PlayerStats player;
     int currIndex;
-    Renderer rend;
+    //Renderer rend;
     private void Start() {
-        rend = GetComponent<Renderer>();
+        //rend = GetComponent<Renderer>();
         player.currTool = tools[1];
         currIndex = 0;
     }
@@ -42,7 +42,7 @@ public class ToolCycle : MonoBehaviour
                     player.currTool = tools[0];
                 }
 
-                rend.material.color = Color.blue;
+                //rend.material.color = Color.blue;
             }
 
             else if(startPos.x < -0.4f){
@@ -56,7 +56,7 @@ public class ToolCycle : MonoBehaviour
                     player.currTool = tools[tools.Length - 1];
                 }
 
-                rend.material.color = Color.green;
+                //rend.material.color = Color.green;
             }
 
             StartCoroutine(Slide());

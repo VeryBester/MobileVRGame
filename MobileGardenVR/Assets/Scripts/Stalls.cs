@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(EventTrigger))]
 public class Stalls : MonoBehaviour
 {
-    PlayerStats pStats;
+    public PlayerStats pStats;
 
     void Start() {
         gameObject.AddListener(EventTriggerType.PointerClick, sellInventory); 

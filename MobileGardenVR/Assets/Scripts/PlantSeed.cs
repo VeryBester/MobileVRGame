@@ -44,7 +44,12 @@ public class PlantSeed : MonoBehaviour
             else{
                 child.water += 0.2f;
             }
-            player.water -= 0.2f;
+            if(player.water < 0.2f){
+                player.water = 0f;
+            }
+            else{
+                player.water -= 0.2f;
+            }
         }
     }
 

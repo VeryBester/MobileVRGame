@@ -75,7 +75,7 @@ public class TreeHarvestSpot : MonoBehaviour
     // Idle for time and water
     IEnumerator passTime(){
         yield return new WaitForSeconds(2);
-        time += 0.001f;
+        time += 0.05f;
         yield return StartCoroutine(passTime());
     }
     IEnumerator waterDry(){

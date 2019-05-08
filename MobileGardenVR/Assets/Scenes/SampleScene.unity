@@ -11214,6 +11214,11 @@ PrefabInstance:
       propertyPath: m_FillAmount
       value: 0.182
       objectReference: {fileID: 0}
+    - target: {fileID: 8188629279938606363, guid: 06aa768c376904812b6fbd113f50a185,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7941137883246936334, guid: 06aa768c376904812b6fbd113f50a185,
         type: 3}
       propertyPath: m_FontData.m_FontSize
@@ -11227,6 +11232,22 @@ PrefabInstance:
     - target: {fileID: 7941137883246936334, guid: 06aa768c376904812b6fbd113f50a185,
         type: 3}
       propertyPath: m_FontData.m_MinSize
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7941137883246936334, guid: 06aa768c376904812b6fbd113f50a185,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8941893609155456431, guid: 06aa768c376904812b6fbd113f50a185,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 11400000, guid: 347a1c526b6f04d4aa12d92a93a61eaa,
+        type: 2}
+    - target: {fileID: 8835245089215580406, guid: 06aa768c376904812b6fbd113f50a185,
+        type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -12556,6 +12577,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 723926960, guid: 60270cf52a5e94998a5a335989159738, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60270cf52a5e94998a5a335989159738, type: 3}
 --- !u!1001 &1385622820
@@ -13502,6 +13527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51974692c7c77843b258439566437a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pStats: {fileID: 11400000, guid: 347a1c526b6f04d4aa12d92a93a61eaa, type: 2}
 --- !u!65 &1508530918
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14786,6 +14812,11 @@ PrefabInstance:
     - target: {fileID: 1775680152, guid: 34c21f523e72f45509a4e37ed0293c3b, type: 3}
       propertyPath: systemButtonColor.b
       value: 0.41525117
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010349995660, guid: 34c21f523e72f45509a4e37ed0293c3b,
+        type: 3}
+      propertyPath: maxLaserDistance
+      value: 10.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34c21f523e72f45509a4e37ed0293c3b, type: 3}
