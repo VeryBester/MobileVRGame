@@ -9,6 +9,9 @@ public class UIManager : MonoBehaviour
     public Image bgRing;
     public Image greenRing;
     public Text scoreText;
+    public Text carrotText;
+    public Text appleText;
+    public Text tomatoText;
 
     private int score;
     private int maxScore = 100;
@@ -25,6 +28,10 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        carrotText.text = player.plantCount.ToString();
+        tomatoText.text = player.plantCount.ToString();
+        appleText.text = player.appleCount.ToString();
+
         setScore(player.score);
     }
 
