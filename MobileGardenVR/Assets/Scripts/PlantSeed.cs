@@ -11,14 +11,31 @@ public class PlantSeed : MonoBehaviour
     public GameObject seed;
     public PlantType child;
 
+    public ParticleSystem ps;
     public PlayerStats player;
 
+    bool playing;
     void Start() {
         gameObject.AddListener(EventTriggerType.PointerClick, plantSeed);
         child = null;
         planted = false;
-        //StartCoroutine(seed1()); 
+        StartCoroutine(seed1()); 
     }
+
+    private void Update() {
+        if(child.ready){
+            if(!playing){
+                ps.Play();
+                playing = true;
+            }
+        }
+        else{
+            playing = false;
+            ps.Stop();
+        }
+    }
+
+
 
     // Command for click
     // Plants seed if none planted, and waters if tool is on water
@@ -56,7 +73,7 @@ public class PlantSeed : MonoBehaviour
     IEnumerator seed1(){
         plantSeed();
         yield return new WaitForSeconds(2);
-        plantSeed();
-        Debug.Log("PLanted");
+        //plantSeed();
+        //Debug.Log("PLanted");
     }
 }

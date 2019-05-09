@@ -79,14 +79,13 @@ public class TreeHarvestSpot : MonoBehaviour
         yield return StartCoroutine(passTime());
     }
     IEnumerator waterDry(){
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(20);
         if(water > 0.05){
-            water = 0f;
-        }
-        else{
             water -= 0.05f;
         }
-        yield return null;
-        StartCoroutine(waterDry());
+        else{
+            water = 0f;
+        }
+        yield return StartCoroutine(waterDry());
     }
 }

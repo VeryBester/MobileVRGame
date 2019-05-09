@@ -100,15 +100,16 @@ public class PlantType : MonoBehaviour
         yield return StartCoroutine(passTime());
     }
     IEnumerator waterDry(){
-        yield return new WaitForSeconds(5);
-        if(water > 0.05){
-            water = 0f;
+        yield return new WaitForSeconds(20);
+        if(!ready){
+            if(water > 0.05){
+                water -= 0.05f;
+            }
+            else{
+                water = 0.00f;
+            }
         }
-        else{
-            water -= 0.05f;
-        }
-        yield return null;
-        StartCoroutine(waterDry());
+        yield return StartCoroutine(waterDry());
     }
 
     // Will be used with the UI to tell the user what is needed
