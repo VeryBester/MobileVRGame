@@ -10,7 +10,7 @@ public class ToolCycle : MonoBehaviour
     
     Vector2 startPos;
     public Tools[] tools;
-
+    public GameObject hand;
     public PlayerStats player;
     int currIndex;
     //Renderer rend;
@@ -61,6 +61,17 @@ public class ToolCycle : MonoBehaviour
 
             StartCoroutine(Slide());
         }
+
+        GameObject[] heldItems = GameObject.FindGameObjectsWithTag("heldItem");
+        foreach (GameObject heldItem in heldItems)
+        {
+            Destroy(heldItem);
+        }
+
+        GameObject handItem = player.currTool.model;
+        handItem.tag = "heldItem";
+        handItem.transform.parent = hand.transform;
+
     }
 }
 
