@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
     // Tool UI
     public Slider toolbar;
     public Text toolbarText;
-
+    public GameObject winBoard;
 
     private int score;
     private int maxScore = 100;
@@ -46,6 +46,11 @@ public class UIManager : MonoBehaviour
         appleText.text = player.appleCount.ToString();
 
         setScore(player.score);
+
+        if(player.score >= 100)
+        {
+            winBoard.SetActive(true);
+        }
     }
 
     public void setScore(int score)
