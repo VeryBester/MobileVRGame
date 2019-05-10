@@ -31,7 +31,7 @@ public class ToolCycle : MonoBehaviour
             yield return new WaitForSeconds(0.25f);
             startPos = GvrControllerInput.TouchPosCentered.normalized;
             
-            if(startPos.x > 0.4f){
+            if(startPos.x > 0.7f){
 
                 if(currIndex + 1 < tools.Length){
                     currIndex++;
@@ -45,7 +45,7 @@ public class ToolCycle : MonoBehaviour
                 //rend.material.color = Color.blue;
             }
 
-            else if(startPos.x < -0.4f){
+            else if(startPos.x < -0.7f){
 
                 if(currIndex - 1 >= 0){
                     currIndex--;
@@ -58,11 +58,12 @@ public class ToolCycle : MonoBehaviour
 
                 //rend.material.color = Color.green;
             }
-
+            
+            yield return new WaitForSeconds(1f);
             StartCoroutine(Slide());
         }
 
-        GameObject[] heldItems = GameObject.FindGameObjectsWithTag("heldItem");
+        /* GameObject[] heldItems = GameObject.FindGameObjectsWithTag("heldItem");
         foreach (GameObject heldItem in heldItems)
         {
             Destroy(heldItem);
@@ -71,7 +72,7 @@ public class ToolCycle : MonoBehaviour
         GameObject handItem = player.currTool.model;
         handItem.tag = "heldItem";
         handItem.transform.parent = hand.transform;
-
+*/
     }
 }
 

@@ -27,7 +27,7 @@ public class PlantSeed : MonoBehaviour
     }
 
     private void Update() {
-        if(child.ready){
+        if(child != null && child.ready){
             if(!playing){
                 ps.Play();
                 playing = true;
@@ -40,13 +40,15 @@ public class PlantSeed : MonoBehaviour
 
         if(watering){
             w.Play();
-            StartCoroutine(stopWatering());
+
+            //StartCoroutine(stopWatering());
         }
     }
 
     IEnumerator stopWatering(){
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         w.Stop();
+        w.Clear();
         watering = false;
     }
 
@@ -77,7 +79,7 @@ public class PlantSeed : MonoBehaviour
                 child.water += 0.2f;
             }
             
-            if(player.water < 0.2f){
+            if(player.water <= 0.2f){
                 player.water = 0f;
             }
             else{

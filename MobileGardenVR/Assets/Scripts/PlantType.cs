@@ -23,11 +23,11 @@ public class PlantType : MonoBehaviour
 
     private bool sproutPlanted, plantPlanted;
     private GameObject child;
-    private void Start() {
+    private void Awake() {
 
 
         // Gets the parent's plantSeed
-        parent = gameObject.transform.parent.gameObject.GetComponent<PlantSeed>();
+        parent = gameObject.GetComponentInParent<PlantSeed>();
         child = Instantiate(seed, gameObject.transform.position, Quaternion.identity, gameObject.transform);
         // Starts at not ready to pick
         ready = false;
@@ -71,7 +71,8 @@ public class PlantType : MonoBehaviour
         if(ready){
             parent.planted = false;
             player.plantCount++;
-            Destroy(this);
+            Destroy(child);
+            Destroy(gameObject);
         }
     }
     public void Hold() {
