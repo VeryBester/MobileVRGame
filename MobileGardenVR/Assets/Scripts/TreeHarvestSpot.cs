@@ -16,8 +16,10 @@ public class TreeHarvestSpot : MonoBehaviour
     public bool ready;
     GameObject child;
     bool applePlanted, blossomPlanted;
+    AudioSource aS;
     void Start()
     {
+        aS = gameObject.GetComponent<AudioSource>();
         gameObject.AddListener(EventTriggerType.PointerClick, pick);
 		//gameObject.AddListener(EventTriggerType.PointerUp, Release);
         StartCoroutine(passTime());
@@ -54,6 +56,7 @@ public class TreeHarvestSpot : MonoBehaviour
             water = 0f;
             ready = false;
             player.appleCount++;
+            aS.Play();
             Destroy(child);
         }
     }
@@ -87,7 +90,7 @@ public class TreeHarvestSpot : MonoBehaviour
     // Idle for time and water
     IEnumerator passTime(){
         yield return new WaitForSeconds(2);
-        time += 0.05f;
+        time += 0.02f;
         yield return StartCoroutine(passTime());
     }
     IEnumerator waterDry(){

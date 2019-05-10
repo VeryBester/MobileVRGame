@@ -4,7 +4,6 @@
 public class Tools : ScriptableObject
 {
     public string name;
-    public Sprite pic;
     public GameObject model;
 
 }

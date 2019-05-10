@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Plant
   m_EditorClassIdentifier: 
   name: Plant
-  pic: {fileID: 21300000, guid: fe4fc8c33a7454cbf8504991c47a12a8, type: 3}
-  model: {fileID: 100000, guid: 253150e37b4c643a18c418ccf016f187, type: 3}
+  model: {fileID: 0}

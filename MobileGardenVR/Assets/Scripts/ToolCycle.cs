@@ -42,7 +42,6 @@ public class ToolCycle : MonoBehaviour
                     player.currTool = tools[0];
                 }
 
-                //rend.material.color = Color.blue;
             }
 
             else if(startPos.x < -0.7f){
@@ -56,23 +55,31 @@ public class ToolCycle : MonoBehaviour
                     player.currTool = tools[tools.Length - 1];
                 }
 
-                //rend.material.color = Color.green;
+                
             }
-            
+            if(player.currTool.name == "Water"){
+                hand.SetActive(true);
+            }
+            else{
+                hand.SetActive(false);
+            }
             yield return new WaitForSeconds(1f);
             StartCoroutine(Slide());
         }
 
-        /* GameObject[] heldItems = GameObject.FindGameObjectsWithTag("heldItem");
-        foreach (GameObject heldItem in heldItems)
-        {
-            Destroy(heldItem);
-        }
+        //GameObject[] heldItems = GameObject.FindGameObjectsWithTag("heldItem");
+        /* if(heldItems != null){
+            foreach (GameObject heldItem in heldItems)
+            {
+                Destroy(heldItem);
+            }
+        }*/
 
-        GameObject handItem = player.currTool.model;
-        handItem.tag = "heldItem";
-        handItem.transform.parent = hand.transform;
-*/
+        /* GameObject handItem = player.currTool.model;
+        if(handItem != null){
+            handItem.tag = "heldItem";
+            handItem.transform.parent = hand.transform;
+        }*/
     }
 }
 

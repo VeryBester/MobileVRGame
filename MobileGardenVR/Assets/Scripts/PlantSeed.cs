@@ -17,9 +17,11 @@ public class PlantSeed : MonoBehaviour
     public PlayerStats player;
 
     bool watering;
-
+    AudioSource aS;
     bool playing;
     void Start() {
+        aS = gameObject.GetComponent<AudioSource>();
+        //aS.Play();
         gameObject.AddListener(EventTriggerType.PointerClick, plantSeed);
         child = null;
         planted = false;
@@ -40,14 +42,12 @@ public class PlantSeed : MonoBehaviour
 
         if(watering){
             w.Play();
-
-            //StartCoroutine(stopWatering());
+            StartCoroutine(stopWatering());
         }
     }
 
     IEnumerator stopWatering(){
         yield return new WaitForSeconds(1f);
-        w.Stop();
         w.Clear();
         watering = false;
     }
@@ -63,6 +63,7 @@ public class PlantSeed : MonoBehaviour
             GameObject temp = Instantiate(seed, center.transform.position, Quaternion.identity, center.transform);
             child = temp.GetComponent<PlantType>();
             planted = true;
+            aS.Play();
         }
         else if(planted && player.currTool.name == "Water"){
             Water();
@@ -85,7 +86,10 @@ public class PlantSeed : MonoBehaviour
             else{
                 player.water -= 0.2f;
             }
-            watering = true;
+
+            if(!watering){
+                watering = true;
+            }
         }
     }
 

@@ -39,11 +39,10 @@ public class UIManager : MonoBehaviour
         if (player.currTool.name == "Water")
         {
             showToolbar();
-            setToolbar(player.water, 5);
+            setToolbar(player.water, 1);
         }
 
         carrotText.text = player.plantCount.ToString();
-        tomatoText.text = player.plantCount.ToString();
         appleText.text = player.appleCount.ToString();
 
         setScore(player.score);

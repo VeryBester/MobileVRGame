@@ -17,7 +17,7 @@ public class Stalls : MonoBehaviour
     public void sellInventory(){
         int apple = pStats.appleCount;
         int plant = pStats.plantCount;
-        pStats.score = pStats.score + apple * 2 + plant * 3;
+        pStats.score = pStats.score + apple * 10 + plant * 20;
         pStats.appleCount = 0;
         pStats.plantCount = 0;
     }

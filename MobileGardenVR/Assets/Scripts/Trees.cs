@@ -8,8 +8,8 @@ using UnityEngine.EventSystems;
 public class Trees : MonoBehaviour
 {
     // Start is called before the first frame update
-    public TreeHarvestSpot child1;
-    public TreeHarvestSpot child2;
+    public TreeHarvestSpot[] children;
+    //public TreeHarvestSpot child2;
 
     public PlayerStats player;
     void Start()
@@ -19,20 +19,15 @@ public class Trees : MonoBehaviour
 
     public void Water(){
         if(player.currTool.name == "Water" && player.water >= 0.2f){
-            if(child1.water > 1f){
-                child1.water = 1.2f;
+            foreach (TreeHarvestSpot child in children){
+                if(child.water > 1f){
+                    child.water = 1.2f;
+                }
+                else{
+                    child.water += 0.2f;
+                }    
             }
-            else{
-                child1.water += 0.2f;
-            }
-
-            if(child2.water > 1f){
-                child2.water = 1.2f;
-            }
-            else{
-                child2.water += 0.2f;
-            }
-
+            
             player.water -= 0.2f;
         }
     }
