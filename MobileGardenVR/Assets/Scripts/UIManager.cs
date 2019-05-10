@@ -6,12 +6,20 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
 
+    // Ring UI
     public Image bgRing;
     public Image greenRing;
     public Text scoreText;
+
+    // Score UI
     public Text carrotText;
     public Text appleText;
     public Text tomatoText;
+
+    // Tool UI
+    public Slider toolbar;
+    public Text toolbarText;
+
 
     private int score;
     private int maxScore = 100;
@@ -28,6 +36,12 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player.currTool.name == "Water")
+        {
+            showToolbar();
+            setToolbar(player.water, 5);
+        }
+
         carrotText.text = player.plantCount.ToString();
         tomatoText.text = player.plantCount.ToString();
         appleText.text = player.appleCount.ToString();
@@ -39,6 +53,25 @@ public class UIManager : MonoBehaviour
     {
         this.score = score;
         refreshDisplay();
+    }
+
+    public void showToolbar()
+    {
+        toolbar.gameObject.SetActive(true);
+        toolbarText.gameObject.SetActive(true);
+    }
+
+    public void hideToolbar()
+    {
+        toolbar.gameObject.SetActive(false);
+        toolbarText.gameObject.SetActive(false);
+    }
+
+    public void setToolbar(float amount, int maxAmount)
+    {
+        toolbar.maxValue = maxAmount;
+        toolbar.value = amount;
+        toolbarText.text = player.currTool.name;
     }
 
     public void refreshDisplay()
