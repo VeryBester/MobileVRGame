@@ -18,31 +18,43 @@ public class TreeHarvestSpot : MonoBehaviour
     bool applePlanted, blossomPlanted;
     void Start()
     {
-        gameObject.AddListener(EventTriggerType.PointerDown, Hold);
-		gameObject.AddListener(EventTriggerType.PointerUp, Release);
+        gameObject.AddListener(EventTriggerType.PointerClick, pick);
+		//gameObject.AddListener(EventTriggerType.PointerUp, Release);
         StartCoroutine(passTime());
         StartCoroutine(waterDry());
     }
 
     private void Update() {
-        if(water >= 1 && time >= 1){
-            ready = true;
-            if(!applePlanted){
-                Destroy(child);
-                child = Instantiate(apple, gameObject.transform.position, Quaternion.identity, gameObject.transform);
-                applePlanted = true;
+        if(!ready){
+            if(water >= 1 && time >= 1){
+                ready = true;
+                if(!applePlanted){
+                    Destroy(child);
+                    child = Instantiate(apple, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+                    applePlanted = true;
+                }
+            }
+            else if(water >= 0.5 && time >= 0.5){
+                ready = false;
+                if(!blossomPlanted){
+                    Destroy(child);
+                    child = Instantiate(blossom, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+                    blossomPlanted = true;
+                }
+            }
+            else{
+                ready = false;
             }
         }
-        else if(water >= 0.5 && time >= 0.5){
+    }
+
+    public void pick(){
+        if(ready){
+            time = 0f;
+            water = 0f;
             ready = false;
-            if(!blossomPlanted){
-                Destroy(child);
-                child = Instantiate(blossom, gameObject.transform.position, Quaternion.identity, gameObject.transform);
-                blossomPlanted = true;
-            }
-        }
-        else{
-            ready = false;
+            player.appleCount++;
+            Destroy(child);
         }
     }
     public void Hold() {

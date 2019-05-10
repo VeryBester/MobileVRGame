@@ -33,9 +33,9 @@ public class PlantType : MonoBehaviour
         ready = false;
 
         // Adds pointer controlls
-        gameObject.AddListener(EventTriggerType.PointerDown, Hold);
-		gameObject.AddListener(EventTriggerType.PointerUp, Release);
-
+        //gameObject.AddListener(EventTriggerType.PointerDown, Hold);
+		//gameObject.AddListener(EventTriggerType.PointerUp, Release);
+        gameObject.AddListener(EventTriggerType.PointerClick, pick);
         // These decrease the water level and increase time as time goes on
         StartCoroutine(passTime());
         StartCoroutine(waterDry());
@@ -44,27 +44,36 @@ public class PlantType : MonoBehaviour
 
     // Updates just checks when things are ready and changes stages
     private void Update() {
-        if(water >= 1 && time >= 1){
-            ready = true;
-            if(!plantPlanted){
-                Destroy(child);
-                child = Instantiate(plant, gameObject.transform.position, Quaternion.identity, gameObject.transform);
-                plantPlanted = true;
+        if(!ready){
+            if(water >= 1 && time >= 1){
+                ready = true;
+                if(!plantPlanted){
+                    Destroy(child);
+                    child = Instantiate(plant, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+                    plantPlanted = true;
+                }
             }
-        }
-        else if(water >= 0.5 && time >= 0.5){
-            ready = false;
-            if(!sproutPlanted){
-                Destroy(child);
-                child = Instantiate(sprout, gameObject.transform.position, Quaternion.identity, gameObject.transform);
-                sproutPlanted = true;
+            else if(water >= 0.5 && time >= 0.5){
+                ready = false;
+                if(!sproutPlanted){
+                    Destroy(child);
+                    child = Instantiate(sprout, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+                    sproutPlanted = true;
+                }
             }
-        }
-        else{
-            ready = false;
+            else{
+                ready = false;
+            }   
         }
     }
 
+    public void pick(){
+        if(ready){
+            parent.planted = false;
+            player.plantCount++;
+            Destroy(this);
+        }
+    }
     public void Hold() {
         if(player.currTool.name != "Water"){
             if(ready){

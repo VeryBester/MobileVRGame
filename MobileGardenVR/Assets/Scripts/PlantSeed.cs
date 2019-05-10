@@ -12,7 +12,11 @@ public class PlantSeed : MonoBehaviour
     public PlantType child;
 
     public ParticleSystem ps;
+
+    public ParticleSystem w;
     public PlayerStats player;
+
+    bool watering;
 
     bool playing;
     void Start() {
@@ -33,6 +37,17 @@ public class PlantSeed : MonoBehaviour
             playing = false;
             ps.Stop();
         }
+
+        if(watering){
+            w.Play();
+            StartCoroutine(stopWatering());
+        }
+    }
+
+    IEnumerator stopWatering(){
+        yield return new WaitForSeconds(3f);
+        w.Stop();
+        watering = false;
     }
 
 
@@ -41,13 +56,13 @@ public class PlantSeed : MonoBehaviour
     // Plants seed if none planted, and waters if tool is on water
     public void plantSeed(){
         //Debug.Log("Planted");
-        if(!planted){
+        if(!planted && player.currTool.name == "Plant"){
             GameObject center = gameObject.transform.Find("Plant").gameObject;
             GameObject temp = Instantiate(seed, center.transform.position, Quaternion.identity, center.transform);
             child = temp.GetComponent<PlantType>();
             planted = true;
         }
-        else{
+        else if(planted && player.currTool.name == "Water"){
             Water();
         }
     }
@@ -61,12 +76,14 @@ public class PlantSeed : MonoBehaviour
             else{
                 child.water += 0.2f;
             }
+            
             if(player.water < 0.2f){
                 player.water = 0f;
             }
             else{
                 player.water -= 0.2f;
             }
+            watering = true;
         }
     }
 
